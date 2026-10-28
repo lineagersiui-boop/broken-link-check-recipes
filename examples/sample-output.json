@@ -1,0 +1,264 @@
+[
+  {
+    "url": "https://apify.com/",
+    "status": 200,
+    "finalUrl": "https://apify.com/",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/about",
+    "status": 200,
+    "finalUrl": "https://apify.com/about",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/actors",
+    "status": 200,
+    "finalUrl": "https://apify.com/actors",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/ai-agents",
+    "status": 200,
+    "finalUrl": "https://apify.com/ai-agents",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/ai-agents/ai-agent-marketplace",
+    "status": 200,
+    "finalUrl": "https://apify.com/ai-agents/ai-agent-marketplace",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/bardeen-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/bardeen-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/brightdata-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/brightdata-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/brightdata-alternative-for-facebook-data",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/brightdata-alternative-for-facebook-data",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/browseai-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/browseai-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/crawl4ai-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/crawl4ai-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/diffbot-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/diffbot-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/firecrawl-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/firecrawl-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/gmaps-extractor-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/gmaps-extractor-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/gmapsextractor-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/outscraper-alternative",
+    "redirects": 1,
+    "redirectStatuses": [
+      308
+    ],
+    "flags": [
+      "redirected"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/importio-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/importio-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/jina-ai-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/jina-ai-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/kadoa-alternatives",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/kadoa-alternatives",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/mozenda-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/mozenda-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  },
+  {
+    "url": "https://apify.com/alternatives/octoparse-alternative",
+    "status": 200,
+    "finalUrl": "https://apify.com/alternatives/octoparse-alternative",
+    "redirects": 0,
+    "redirectStatuses": [],
+    "flags": [
+      "ok"
+    ],
+    "lastmod": null,
+    "sitemap": "https://apify.com/sitemap/pages.xml",
+    "demo": true
+  }
+]
