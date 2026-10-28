@@ -1,0 +1,97 @@
+# Sitemap link check with the Apify Actor lineagersiui/sitemap-url-health-checker.
+# Copy to .github/workflows/link-check.yml in YOUR repository.
+# Needs: a repository secret APIFY_TOKEN (preferably a dedicated, scoped token: see the README) and a file
+# link-check-input.json in the repository root
+# (same format as examples/input-site.json, with your own site and "confirmPermission": true).
+# Only check sites you own or have permission to check.
+#
+# The job FAILS, so GitHub's normal failure notification alerts you, when:
+#   - any URL is flagged with one of FAIL_FLAGS (default: 404/410, other 4xx, 5xx, more than 5 redirects);
+#   - the Actor run does not succeed (for example, confirmPermission is missing);
+#   - no URL got an HTTP answer (sitemap not found, or everything blocked or unreachable).
+# It uses the asynchronous API (start the run, then poll), because the synchronous run endpoint
+# waits only about 5 minutes. Full results are uploaded as the artifact "link-check-results".
+name: link-check
+on:
+  schedule:
+    - cron: "0 5 * * 1"   # Mondays 05:00 UTC
+  workflow_dispatch: {}
+  # After a deploy: uncomment and use the name of your deploy workflow.
+  # workflow_run:
+  #   workflows: ["Deploy"]
+  #   types: [completed]
+permissions:
+  contents: read
+jobs:
+  check:
+    # For workflow_run, only check after a successful deploy.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+      INPUT_FILE: link-check-input.json
+      FAIL_FLAGS: not_found,client_error,server_error,too_many_redirects
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Sitemap URL Health Checker
+        run: |
+          node --input-type=module - <<'EOF'
+          import fs from 'node:fs';
+          const API = 'https://api.apify.com/v2';
+          const ACTOR = 'lineagersiui~sitemap-url-health-checker';
+          const die = (msg) => { console.log(`::error::${msg}`); process.exit(1); };
+          const token = process.env.APIFY_TOKEN;
+          if (!token) die('Repository secret APIFY_TOKEN is not set.');
+          const failFlags = process.env.FAIL_FLAGS.split(',').map((s) => s.trim()).filter(Boolean);
+          const input = JSON.parse(fs.readFileSync(process.env.INPUT_FILE, 'utf8'));
+          if (!input.siteUrls?.length && !input.sitemapUrls?.length) die('The input has no siteUrls or sitemapUrls (that would only run the free demo).');
+          const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+          async function api(path, init = {}) {
+            const res = await fetch(API + path, { ...init, headers });
+            if (!res.ok) die(`${init.method ?? 'GET'} ${path.split('?')[0]} returned HTTP ${res.status}`);
+            return res.json();
+          }
+          // Start the run, then wait for it (each poll waits up to 60 s on Apify's side).
+          let run = (await api(`/acts/${ACTOR}/runs`, { method: 'POST', body: JSON.stringify(input) })).data;
+          console.log(`Started run ${run.id}`);
+          fs.writeFileSync('apify-run-id', run.id);   // used by the abort step if this job is cancelled
+          while (!['SUCCEEDED', 'FAILED', 'ABORTED', 'TIMED-OUT'].includes(run.status)) {
+            run = (await api(`/actor-runs/${run.id}?waitForFinish=60`)).data;
+          }
+          if (run.status !== 'SUCCEEDED') die(`Actor run ${run.id} ended ${run.status}. See its log in Apify Console (a run without "confirmPermission": true is refused).`);
+          const items = await api(`/datasets/${run.defaultDatasetId}/items?clean=true&format=json`);
+          const sres = await fetch(`${API}/key-value-stores/${run.defaultKeyValueStoreId}/records/SUMMARY`, { headers });
+          const summary = sres.ok ? await sres.json() : null;
+          fs.writeFileSync('link-check-results.json', JSON.stringify({ summary, items }, null, 2));
+          for (const it of items) {
+            if (it.flags.includes('ok')) continue;
+            const to = it.finalUrl && it.finalUrl !== it.url ? ` -> ${it.finalUrl}` : '';
+            console.log(`${it.flags.join(',')}\t${it.status ?? '-'}\t${it.url}${to}`);
+          }
+          if (!summary) die('The run has no SUMMARY record.');
+          console.log(`Checked ${summary.checked} of ${summary.urlsFound} URLs found: ${summary.problems} with problems, ${summary.blockedByRobots} blocked by robots.txt, ${summary.errors} errors, ${summary.billed} billed.`);
+          if (summary.note) console.log(`::warning::${summary.note}`);
+          if (summary.checked - summary.blockedByRobots - summary.errors <= 0) die('No URL got an HTTP answer. Is the sitemap reachable, and does robots.txt allow this checker?');
+          const bad = items.filter((it) => it.flags.some((f) => failFlags.includes(f)));
+          if (bad.length) die(`${bad.length} URL(s) flagged with ${failFlags.join(', ')}.`);
+          console.log('No URLs with failing flags.');
+          EOF
+      - name: Abort the Apify run if this job was cancelled or timed out
+        # Otherwise the run keeps going (and billing, up to maxUrls) after GitHub stops the job.
+        if: cancelled()
+        run: |
+          if [ -f apify-run-id ]; then
+            curl -sS -X POST -o /dev/null -H "Authorization: Bearer $APIFY_TOKEN" \
+              "https://api.apify.com/v2/actor-runs/$(cat apify-run-id)/abort"
+          fi
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-results
+          path: link-check-results.json
+          if-no-files-found: ignore
