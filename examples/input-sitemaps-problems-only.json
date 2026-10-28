@@ -1,0 +1,10 @@
+{
+  "sitemapUrls": [
+    "https://www.example.com/sitemap_index.xml",
+    "https://www.example.com/blog/sitemap.xml.gz"
+  ],
+  "confirmPermission": true,
+  "maxUrls": 2000,
+  "onlyProblems": true,
+  "timeLimitSecs": 2400
+}
